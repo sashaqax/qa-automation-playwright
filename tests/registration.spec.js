@@ -2,10 +2,12 @@ const { test, expect } = require('@playwright/test')
 
 const uniqueEmail = `aqa_${Date.now()}@test.com`
 
+test.use({ storageState: { cookies: [], origins: [] } })
+
 test.describe('Registration form', () => {
 
   test.beforeEach(async ({ page }) => {
-  await page.goto('https://guest:welcome2qauto@qauto.forstudy.space/')
+  await page.goto('/')
   await page.getByRole('button', { name: 'Sign up' }).click()
   await expect(page.locator('.modal-content')).toBeVisible()
 })

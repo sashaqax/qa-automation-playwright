@@ -23,22 +23,11 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Install xvfb and Firefox
-        run: |
-          rm -f /etc/apt/sources.list.d/google-chrome.list
-          rm -f /etc/apt/sources.list.d/google.list
-          rm -f /etc/apt/sources.list.d/microsoft-edge.list
-          rm -f /etc/apt/sources.list.d/microsoft-edge-stable.list
-          apt-get update
-          apt-get install -y xvfb xauth firefox-esr
-          ln -sf /usr/bin/firefox-esr /usr/bin/firefox
-          firefox --version
-
       - name: Install older Cypress version
         run: npm install cypress@12.17.4 --no-save
 
-      - name: Run Cypress tests in Docker with Firefox
-        run: xvfb-run -a npx cypress run --browser /usr/bin/firefox
+      - name: Run Cypress tests in Docker with Chrome
+        run: npx cypress run --browser chrome
 
       - name: Upload Cypress artifacts
         if: always()

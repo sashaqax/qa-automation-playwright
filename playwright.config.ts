@@ -33,6 +33,26 @@ export default defineConfig({
       testMatch: 'tests/setup/*.setup.ts',
     },
     {
+      name: 'e2e-smoke',
+      grep: /@smoke/,
+      use: {
+        ...devices['Desktop Chrome'],
+        headless: true,
+        storageState: authFile,
+      },
+      dependencies: ['setup'],
+    },
+    {
+      name: 'e2e-regression',
+      grep: /@regression/,
+      use: {
+        ...devices['Desktop Chrome'],
+        headless: true,
+        storageState: authFile,
+      },
+      dependencies: ['setup'],
+    },
+    {
       name: 'chrome',
       use: {
         ...devices['Desktop Chrome'],

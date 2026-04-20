@@ -18,14 +18,14 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Install xvfb for Firefox
+      - name: Install xvfb and Firefox
         run: |
           rm -f /etc/apt/sources.list.d/google-chrome.list
           rm -f /etc/apt/sources.list.d/google.list
           rm -f /etc/apt/sources.list.d/microsoft-edge.list
           rm -f /etc/apt/sources.list.d/microsoft-edge-stable.list
           apt-get update
-          apt-get install -y xvfb xauth
+          apt-get install -y xvfb xauth firefox-esr
 
       - name: Install older Cypress version
         run: npm install cypress@12.17.4 --no-save

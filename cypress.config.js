@@ -1,0 +1,10 @@
+const { defineConfig } = require('cypress')
+
+module.exports = defineConfig({
+  e2e: {
+    baseUrl: 'https://guest:welcome2qauto@qauto.forstudy.space',
+    specPattern: 'cypress/e2e/**/*.cy.js',
+  },
+  video: false,
+  screenshotOnRunFailure: true,
+})

@@ -6,6 +6,11 @@ on:
   pull_request:
     branches: [main, master]
 
+env:
+  BASE_URL: https://qauto.forstudy.space
+  HTTP_CREDENTIALS_USERNAME: guest
+  HTTP_CREDENTIALS_PASSWORD: welcome2qauto
+
 jobs:
   cypress-tests:
     runs-on: ubuntu-latest
@@ -26,12 +31,14 @@ jobs:
           rm -f /etc/apt/sources.list.d/microsoft-edge-stable.list
           apt-get update
           apt-get install -y xvfb xauth firefox-esr
+          ln -sf /usr/bin/firefox-esr /usr/bin/firefox
+          firefox --version
 
       - name: Install older Cypress version
         run: npm install cypress@12.17.4 --no-save
 
       - name: Run Cypress tests in Docker with Firefox
-        run: xvfb-run -a npx cypress run --browser firefox
+        run: xvfb-run -a npx cypress run --browser /usr/bin/firefox
 
       - name: Upload Cypress artifacts
         if: always()

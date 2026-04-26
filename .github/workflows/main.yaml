@@ -1,0 +1,63 @@
+name: Docker Tests
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+env:
+  BASE_URL: https://qauto.forstudy.space
+  HTTP_CREDENTIALS_USERNAME: guest
+  HTTP_CREDENTIALS_PASSWORD: welcome2qauto
+
+jobs:
+  cypress-tests:
+    runs-on: ubuntu-latest
+    container:
+      image: cypress/browsers:node-20.9.0-chrome-118.0.5993.88-1-ff-118.0.2-edge-118.0.2088.46-1
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Install older Cypress version
+        run: npm install cypress@12.17.4 --no-save
+
+      - name: Run Cypress tests in Docker with Chrome
+        run: npx cypress run --browser chrome
+
+      - name: Upload Cypress artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cypress-artifacts
+          path: |
+            cypress/screenshots
+            cypress/videos
+
+  playwright-tests:
+    runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/playwright:v1.39.0-jammy
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Install Playwright 1.39.0
+        run: npm install @playwright/test@1.39.0 playwright@1.39.0 --no-save
+
+      - name: Run Playwright tests in Docker
+        run: npx playwright test --project=e2e-smoke
+
+      - name: Upload Playwright report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report

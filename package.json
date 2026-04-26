@@ -1,0 +1,14 @@
+{
+  "scripts": {
+    "test": "playwright test",
+    "test:chrome": "playwright test --project=chrome",
+    "test:ui": "playwright test --ui",
+    "test:smoke": "playwright test --project=e2e-smoke",
+    "test:regression": "playwright test --project=e2e-regression",
+    "cypress:run:firefox": "cypress run --browser firefox"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.58.2",
+    "dotenv": "^17.3.1"
+  }
+}

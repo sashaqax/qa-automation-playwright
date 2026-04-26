@@ -1,3 +1,4 @@
+
 # QA Automation Portfolio: Playwright + API Tests
 
 Automation testing project for web UI and API validation, built with Playwright and JavaScript/TypeScript.
